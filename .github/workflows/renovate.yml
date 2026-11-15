@@ -1,0 +1,31 @@
+name: Dependency updates
+
+on:
+  schedule:
+    - cron: "17 2 * * 1"
+  workflow_dispatch:
+    inputs:
+      dry-run:
+        description: Preview updates without creating branches, PRs or merges
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: renovate
+  cancel-in-progress: false
+
+jobs:
+  renovate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: ./actions/renovate
+        with:
+          token: ${{ secrets.RENOVATE_TOKEN }}
+          dry-run: ${{ github.event_name == 'workflow_dispatch' && inputs.dry-run && 'full' || '' }}
