@@ -1,8 +1,13 @@
 # Delivery tooling
 
-Prepared locally; no release is published and consumer migration has not started.
-The initial implementation supplies a public Renovate preset and a composite
-runner action. Release planning and publication machinery remain future work.
+The public repository contains the initial Renovate preset and runner. Release
+planning, artifact verification and publication machinery are implemented and
+approved for publication. First-release verification and consumer migration remain
+pending; see the implementation status below.
+
+Consumers can use the [release CLI and composable actions](docs/design/releases.md)
+with [small release configurations](examples/README.md). The self-hosting workflow
+provides an explicit check → plan → publish job chain for tagged-source releases.
 
 Consumers own their jobs, runner selection, schedule, concurrency and permissions.
 The action supplies pinned Node/Renovate tooling, optional pinned APM provisioning,
@@ -34,8 +39,8 @@ hosted and self-hosted runners for the same repository.
 
 Use a published release's verified commit SHA with a version comment when adopting
 this action. No deployable consumer example is provided until such a release
-exists. Helper logic is embedded in the pinned composite action, so it cannot
-accidentally execute a helper from the consumer checkout.
+exists. The action resolves `run.sh` through `github.action_path`, binding helper
+execution to the same action revision rather than the consumer checkout.
 
 For initial onboarding before this repository is published, consumers can use
 the existing upstream `renovatebot/github-action` directly. Do not replace working
@@ -43,14 +48,20 @@ runners until the shared action has passed a real pilot with the required manage
 
 ## Validation and publication
 
-Run `make`, then `make check`. Validate GitHub workflows and composite action
-metadata, and perform credential-free dependency extraction before publication.
+With Docker, Go, Node 22+, npm and uv available, run `make`, `make setup`, then
+`make check`. Run `make release-plan` for a non-publishing preview. This validates
+Renovate configuration, lints workflows and tests runner behavior without bot
+credentials. The behavioral tests stub the CLI and check target isolation,
+preview defaults, explicit normal runs, private-module environment forwarding,
+invalid inputs and failure propagation. They do not contact GitHub.
+Validate composite action metadata and perform credential-free dependency extraction before publication.
 An authenticated preview and real update PR remain required live acceptance steps.
 
 Use one immutable SemVer stream for this tooling. The first source-only release
-requires reviewed publication; automated release machinery is not implemented.
+requires reviewed publication of the new self-hosting workflow. No unpublished
+version is assumed by its local action invocations.
 Keep the existing preset address unchanged until resolved-policy equivalence and
 pin updates have been verified. Roll back consumers by restoring their previous
 runner and pin; never move a published tooling tag.
 
-See [implementation status](docs/wip/renovate-adoption/README.md).
+See [implementation status](docs/wip/delivery-tooling/README.md).

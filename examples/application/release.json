@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "streams": {
+    "main": {
+      "tagPrefix": "app-v",
+      "initialVersion": "0.1.0",
+      "requiredChecks": [
+        "check"
+      ],
+      "artifacts": [
+        "server-linux-amd64.tar.gz",
+        "frontend.tar.gz",
+        "provenance.json"
+      ]
+    }
+  }
+}

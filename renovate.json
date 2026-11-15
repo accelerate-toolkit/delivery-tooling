@@ -24,6 +24,17 @@
       ],
       "depNameTemplate": "renovate",
       "datasourceTemplate": "npm"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/^Makefile$/"
+      ],
+      "matchStrings": [
+        "ACTIONLINT_VERSION := (?<currentValue>[^\\s]+)"
+      ],
+      "depNameTemplate": "rhysd/actionlint",
+      "datasourceTemplate": "github-releases"
     }
   ],
   "automerge": false

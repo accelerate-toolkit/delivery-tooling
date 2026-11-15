@@ -1,0 +1,43 @@
+name: Publish release
+description: Publish or resume the verified release without replacing tags or assets
+inputs:
+  token:
+    description: GitHub token with contents write and checks read permissions
+    required: true
+  plan:
+    description: Original release plan file
+    required: true
+  manifest:
+    description: Verified manifest file
+    required: true
+  expected-commit:
+    description: Full source commit approved by the consumer workflow
+    required: true
+  artifacts:
+    description: Directory containing exactly the configured artifacts, empty for source-only
+    default: ''
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+      with:
+        node-version: 24.21.0
+    - name: Install locked release tooling
+      shell: bash
+      env:
+        TOOLING_ACTION_PATH: ${{ github.action_path }}
+      run: npm ci --prefix "$TOOLING_ACTION_PATH/../.." --ignore-scripts --omit=dev
+    - name: Publish
+      shell: bash
+      env:
+        TOOLING_ACTION_PATH: ${{ github.action_path }}
+        GH_TOKEN: ${{ inputs.token }}
+        PLAN: ${{ inputs.plan }}
+        MANIFEST: ${{ inputs.manifest }}
+        EXPECTED_COMMIT: ${{ inputs.expected-commit }}
+        ARTIFACTS: ${{ inputs.artifacts }}
+      run: |
+        test -n "$GH_TOKEN" || { echo 'A publication token is required.' >&2; exit 1; }
+        args=(publish --plan "$PLAN" --manifest "$MANIFEST" --expected-commit "$EXPECTED_COMMIT")
+        if [[ -n "$ARTIFACTS" ]]; then args+=(--artifacts "$ARTIFACTS"); fi
+        node "$TOOLING_ACTION_PATH/../../release/cli.mjs" "${args[@]}"

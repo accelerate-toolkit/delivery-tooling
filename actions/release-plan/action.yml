@@ -1,0 +1,53 @@
+name: Plan release
+description: Compute a credential-free release plan from the consumer checkout
+inputs:
+  config:
+    description: Consumer release configuration
+    default: release.json
+  stream:
+    description: Release stream
+    default: main
+  ref:
+    description: Source ref to plan
+    default: HEAD
+  output:
+    description: Plan output directory
+    default: build/release
+outputs:
+  release:
+    description: Whether there is an eligible release
+    value: ${{ steps.plan.outputs.release }}
+  version:
+    description: Planned version
+    value: ${{ steps.plan.outputs.version }}
+  tag:
+    description: Planned tag
+    value: ${{ steps.plan.outputs.tag }}
+  source-commit:
+    description: Full source commit
+    value: ${{ steps.plan.outputs.source-commit }}
+  plan:
+    description: Release plan file
+    value: ${{ steps.plan.outputs.plan }}
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+      with:
+        node-version: 24.21.0
+    - name: Install locked release tooling
+      shell: bash
+      env:
+        TOOLING_ACTION_PATH: ${{ github.action_path }}
+      run: npm ci --prefix "$TOOLING_ACTION_PATH/../.." --ignore-scripts --omit=dev
+    - name: Plan
+      id: plan
+      shell: bash
+      env:
+        TOOLING_ACTION_PATH: ${{ github.action_path }}
+        CONFIG: ${{ inputs.config }}
+        STREAM: ${{ inputs.stream }}
+        SOURCE_REF: ${{ inputs.ref }}
+        OUTPUT: ${{ inputs.output }}
+        REPOSITORY: ${{ github.repository }}
+      run: node "$TOOLING_ACTION_PATH/../../release/cli.mjs" plan --repository "$REPOSITORY" --config "$CONFIG" --stream "$STREAM" --ref "$SOURCE_REF" --output "$OUTPUT"

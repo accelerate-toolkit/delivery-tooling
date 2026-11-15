@@ -1,0 +1,38 @@
+name: Verify release
+description: Verify the consumer artifact set and write a source-bound manifest
+inputs:
+  plan:
+    description: Release plan file
+    required: true
+  artifacts:
+    description: Directory containing exactly the configured artifacts, empty for source-only
+    default: ''
+  output:
+    description: Manifest output directory, separate from artifacts
+    default: build/release
+outputs:
+  manifest:
+    description: Verified release manifest file
+    value: ${{ inputs.output }}/release-manifest.json
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+      with:
+        node-version: 24.21.0
+    - name: Install locked release tooling
+      shell: bash
+      env:
+        TOOLING_ACTION_PATH: ${{ github.action_path }}
+      run: npm ci --prefix "$TOOLING_ACTION_PATH/../.." --ignore-scripts --omit=dev
+    - name: Verify
+      shell: bash
+      env:
+        TOOLING_ACTION_PATH: ${{ github.action_path }}
+        PLAN: ${{ inputs.plan }}
+        ARTIFACTS: ${{ inputs.artifacts }}
+        OUTPUT: ${{ inputs.output }}
+      run: |
+        args=(verify --plan "$PLAN" --output "$OUTPUT")
+        if [[ -n "$ARTIFACTS" ]]; then args+=(--artifacts "$ARTIFACTS"); fi
+        node "$TOOLING_ACTION_PATH/../../release/cli.mjs" "${args[@]}"

@@ -1,0 +1,91 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "urn:delivery-tooling:plan:v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "repository",
+    "stream",
+    "policy",
+    "sourceCommit",
+    "configPath",
+    "configDigest",
+    "baselineTag",
+    "release",
+    "version",
+    "tag",
+    "bump",
+    "notes",
+    "digest"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "repository": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$"
+    },
+    "stream": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_-]+$"
+    },
+    "policy": {
+      "$ref": "urn:delivery-tooling:config:v1#/$defs/stream"
+    },
+    "sourceCommit": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{40}$"
+    },
+    "configPath": {
+      "type": "string",
+      "minLength": 1
+    },
+    "configDigest": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "baselineTag": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "release": {
+      "type": "boolean"
+    },
+    "version": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "tag": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "bump": {
+      "enum": [
+        "major",
+        "minor",
+        "patch",
+        null
+      ]
+    },
+    "notes": {
+      "type": "string"
+    },
+    "digest": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    }
+  }
+}

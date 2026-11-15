@@ -19,15 +19,13 @@ runs:
     - name: Validate inputs
       shell: bash
       env:
-        BOT_TOKEN: ${{ inputs.token }}
+        ACTION_PATH: ${{ github.action_path }}
+        RENOVATE_TOKEN: ${{ inputs.token }}
         BOT_VERSION: ${{ inputs.renovate-version }}
         APM_VERSION: ${{ inputs.apm-version }}
-        PREVIEW: ${{ inputs.dry-run }}
-      run: |
-        test -n "$BOT_TOKEN" || { echo 'Configure a repository-scoped GitHub-only bot token.' >&2; exit 1; }
-        [[ "$BOT_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] || { echo 'Renovate requires an exact version.' >&2; exit 1; }
-        [[ -z "$APM_VERSION" || "$APM_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] || { echo 'APM requires an exact version.' >&2; exit 1; }
-        [[ -z "$PREVIEW" || "$PREVIEW" == full ]] || { echo 'dry-run must be full or empty.' >&2; exit 1; }
+        RENOVATE_DRY_RUN: ${{ inputs.dry-run }}
+        CALLER_REPOSITORY: ${{ github.repository }}
+      run: bash "$ACTION_PATH/run.sh" --check
     - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
       with:
         node-version: 24.21.0
@@ -49,15 +47,10 @@ runs:
     - name: Run Renovate
       shell: bash
       env:
+        ACTION_PATH: ${{ github.action_path }}
         BOT_VERSION: ${{ inputs.renovate-version }}
+        APM_VERSION: ${{ inputs.apm-version }}
         RENOVATE_TOKEN: ${{ inputs.token }}
-        GITHUB_TOKEN: ${{ inputs.token }}
-        RENOVATE_PLATFORM: github
-        RENOVATE_REPOSITORIES: ${{ github.repository }}
-        RENOVATE_AUTODISCOVER: 'false'
-        RENOVATE_ONBOARDING: 'false'
-        RENOVATE_REQUIRE_CONFIG: required
-        RENOVATE_BINARY_SOURCE: global
+        CALLER_REPOSITORY: ${{ github.repository }}
         RENOVATE_DRY_RUN: ${{ inputs.dry-run }}
-        LOG_LEVEL: info
-      run: npx --yes --package="renovate@$BOT_VERSION" renovate
+      run: bash "$ACTION_PATH/run.sh"

@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "streams": {
+    "main": {
+      "tagPrefix": "v",
+      "initialVersion": "0.1.0",
+      "requiredChecks": [
+        "check"
+      ],
+      "artifacts": []
+    }
+  }
+}
