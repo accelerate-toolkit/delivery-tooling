@@ -1,9 +1,9 @@
 # Consumer examples
 
-These configurations illustrate the supported contract. No consumer workflow
-references an unpublished tooling tag or an invented release. Once a release is
-published, pin each action to its verified commit SHA with a release-version
-comment so Renovate can extract the reference.
+These configurations illustrate the supported contract. The first verified release
+is `v0.1.0`, at commit `07f7c9e5703d858742c3de4c93344f69a9d20417`.
+Pin each action to that verified commit SHA with a `# v0.1.0` comment so Renovate
+can extract the reference. These examples do not migrate any consumer.
 
 - [Source-only](source-only/release.json): one tagged-source stream, no built assets.
 - [Application](application/release.json): an independent `app-v` namespace with

@@ -1,9 +1,9 @@
 # Delivery tooling
 
 The public repository contains the initial Renovate preset and runner. Release
-planning, artifact verification and publication machinery are implemented and
-approved for publication. First-release verification and consumer migration remain
-pending; see the implementation status below.
+planning, artifact verification and publication machinery have published the first
+verified source release, [v0.1.0](https://github.com/accelerate-toolkit/delivery-tooling/releases/tag/v0.1.0).
+Consumer migration remains pending; see the implementation status below.
 
 Consumers can use the [release CLI and composable actions](docs/design/releases.md)
 with [small release configurations](examples/README.md). The self-hosting workflow
@@ -38,8 +38,8 @@ supply private-module settings; keep credentials in secrets. Avoid overlapping
 hosted and self-hosted runners for the same repository.
 
 Use a published release's verified commit SHA with a version comment when adopting
-this action. No deployable consumer example is provided until such a release
-exists. The action resolves `run.sh` through `github.action_path`, binding helper
+this action. The verified `v0.1.0` source commit is
+`07f7c9e5703d858742c3de4c93344f69a9d20417`. The action resolves `run.sh` through `github.action_path`, binding helper
 execution to the same action revision rather than the consumer checkout.
 
 For initial onboarding before this repository is published, consumers can use
@@ -57,9 +57,9 @@ invalid inputs and failure propagation. They do not contact GitHub.
 Validate composite action metadata and perform credential-free dependency extraction before publication.
 An authenticated preview and real update PR remain required live acceptance steps.
 
-Use one immutable SemVer stream for this tooling. The first source-only release
-requires reviewed publication of the new self-hosting workflow. No unpublished
-version is assumed by its local action invocations.
+Use one immutable SemVer stream for this tooling. The self-hosting workflow has
+published its first source-only release; see [verification evidence](docs/evidence/first-source-release/README.md).
+Its local action invocations bootstrap without an unpublished tooling version.
 Keep the existing preset address unchanged until resolved-policy equivalence and
 pin updates have been verified. Roll back consumers by restoring their previous
 runner and pin; never move a published tooling tag.

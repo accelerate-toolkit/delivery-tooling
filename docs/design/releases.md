@@ -1,7 +1,7 @@
 # Release machinery
 
-Status: implemented, tested and approved for publication; live release verification
-remains pending.
+Status: implemented and tested; the [first live source-only release](../evidence/first-source-release/README.md)
+is verified. Application pilots and live interrupted-publication recovery remain pending.
 
 Consumers own their job graph, checks, build commands, runner selection, matrices,
 artifact contents, compatibility boundary and deployment. Shared CLI commands and
@@ -125,4 +125,5 @@ The self-hosting workflow saves plan/manifest artifacts for 90 days. Consumers
 must choose retention sufficient for recovery; if originals expire, restore the
 original verified files from retained evidence. No new tag or release event is
 needed to trigger another job: orchestration is an explicit job dependency chain.
-GitHub publication has not yet been exercised live for this implementation.
+The first source-only GitHub publication is verified; live interrupted-publication
+recovery remains a separate acceptance check.

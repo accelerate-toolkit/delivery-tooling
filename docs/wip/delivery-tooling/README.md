@@ -1,9 +1,8 @@
 # Delivery tooling implementation
 
 The public repository is created and its reviewed initial Renovate implementation
-is pushed. Composable release machinery and repeatable runner checks are approved
-for commit and publication. The first live source release and consumer adoption
-remain to be verified.
+is pushed. Composable release machinery and repeatable runner checks are published
+as the verified source release `v0.1.0`. Consumer adoption remains pending.
 
 ## Implemented
 
@@ -42,20 +41,19 @@ Verification on 15 November 2026:
   an empty release list and correct handling of an absent tag. No release API
   mutation was used for these checks.
 
-Live GitHub release publication, signed provenance verification, real dependency
-PR creation and shared-runner APM lockfile updates remain unverified.
+The [first live source release](../../evidence/first-source-release/README.md) is
+verified. Application publication, live interrupted-upload recovery, signed
+provenance verification, real dependency PR creation and shared-runner APM lockfile
+updates remain unverified.
 
 ## Remaining
 
-- Publish the approved implementation through its self-hosting workflow.
-  Pushing the new self-hosting workflow on main enables automatic source releases
-  after checks. Its first eligible source release is planned from actual history.
-- Observe a complete source release and verify its metadata/assets and immutable
-  references. Do not put a speculative tag into consumers.
+- Verify live interrupted-publication recovery in an explicitly scoped pilot.
 - Pilot an application with its complete artifact set and provenance checks.
 - Complete repository inventory privately and migrate consumers in reviewed batches.
 - Supply missing bot credentials in their owning repositories; verify actual PRs.
 - Prove action/preset pin updates and resolved-policy equivalence before switching
   the existing preset entry point. Preserve existing merge and schedule policies.
 
-No release tag, consumer migration, deployment or product acceptance is claimed.
+The source release is verified. No consumer migration, deployment or product
+acceptance is claimed.
