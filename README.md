@@ -28,7 +28,7 @@ Inputs:
 
 - `token`: required repository-scoped bot credential; never a deployment token.
 - `dry-run`: `full` by default, or an empty string for normal writes.
-- `renovate-version`: exact version, default `44.151.0`.
+- `renovate-version`: exact version, default `44.242.0`.
 - `apm-version`: optional exact version, only for consumers needing lockfile updates.
 
 The caller owns `contents: read` for its workflow token; the separate bot token

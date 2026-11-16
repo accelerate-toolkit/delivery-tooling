@@ -9,7 +9,7 @@ inputs:
     default: full
   renovate-version:
     description: Exact Renovate version
-    default: 44.151.0
+    default: 44.242.0
   apm-version:
     description: Optional exact APM version for consumers with versioned APM lockfiles
     default: ''
