@@ -9,7 +9,7 @@ inputs:
     default: full
   renovate-version:
     description: Exact Renovate version
-    default: 44.242.0
+    default: 44.244.2
   apm-version:
     description: Optional exact APM version for consumers with versioned APM lockfiles
     default: ''
@@ -28,11 +28,11 @@ runs:
       run: bash "$ACTION_PATH/run.sh" --check
     - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
       with:
-        node-version: 24.21.0
+        node-version: 26.13.1
     - if: inputs.apm-version != ''
-      uses: astral-sh/setup-uv@07a047e608db84b3d8c06cd9a7c7dcc9c355c18e # v10.3.2
+      uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
       with:
-        version: 0.13.5
+        version: 0.13.8
         enable-cache: false
     - name: Install optional APM CLI
       if: inputs.apm-version != ''
