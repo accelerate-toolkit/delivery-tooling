@@ -1,76 +1,7 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "description": "Shared dependency update defaults for Leverage Works and downstream organizations.",
+  "description": "Compatibility entry point; dependency policy is maintained in renovate-config.",
   "extends": [
-    "config:recommended"
-  ],
-  "semanticCommits": "enabled",
-  "automerge": true,
-  "labels": [
-    "dependencies"
-  ],
-  "dependencyDashboard": {
-    "enabled": true,
-    "labels": [
-      "renovate-dependency-dashboard"
-    ]
-  },
-  "prConcurrentLimit": 5,
-  "ignorePaths": [
-    "**/node_modules/**",
-    "**/bower_components/**",
-    "**/vendor/**",
-    "**/examples/**",
-    "**/build/**",
-    "**/apm_modules/**",
-    "**/.agents/**",
-    "**/.codex/**"
-  ],
-  "packageRules": [
-    {
-      "matchManagers": [
-        "github-actions"
-      ],
-      "groupName": "github actions"
-    },
-    {
-      "matchManagers": [
-        "gomod"
-      ],
-      "groupName": "go modules"
-    },
-    {
-      "matchManagers": [
-        "dockerfile"
-      ],
-      "groupName": "docker images"
-    },
-    {
-      "matchManagers": [
-        "docker-compose"
-      ],
-      "groupName": "compose images"
-    },
-    {
-      "matchManagers": [
-        "terraform"
-      ],
-      "groupName": "terraform providers"
-    },
-    {
-      "matchManagers": [
-        "pep723"
-      ],
-      "groupName": "python helpers"
-    },
-    {
-      "matchManagers": [
-        "apm"
-      ],
-      "groupName": "apm modules"
-    }
-  ],
-  "automergeType": "pr",
-  "automergeStrategy": "squash",
-  "platformAutomerge": false
+    "github>accelerate-toolkit/renovate-config"
+  ]
 }

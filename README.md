@@ -13,7 +13,7 @@ Consumers own their jobs, runner selection, schedule, concurrency and permission
 The action supplies pinned Node/Renovate tooling, optional pinned APM provisioning,
 credential validation and single-repository execution. It targets the caller's
 `github.repository`, including after renames. It does not enable automerge;
-repository policy still controls merging. The copied public preset retains its
+repository policy still controls merging. The compatibility preset inherits its
 existing automerge policy, so new consumers must explicitly choose their policy.
 
 ## Runner contract
@@ -73,3 +73,7 @@ pin updates have been verified. Roll back consumers by restoring their previous
 runner and pin; never move a published tooling tag.
 
 See [implementation status](docs/wip/delivery-tooling/README.md).
+
+Dependency grouping is maintained in `accelerate-toolkit/renovate-config`.
+`default.json` delegates to that preset; it does not maintain a second copy.
+See the [grouping adoption guide](https://github.com/accelerate-toolkit/renovate-config#internal-and-external-groups).

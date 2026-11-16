@@ -1,7 +1,7 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "local>accelerate-toolkit/delivery-tooling"
+    "github>accelerate-toolkit/renovate-config"
   ],
   "customManagers": [
     {
