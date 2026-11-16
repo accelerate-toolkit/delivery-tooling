@@ -48,6 +48,13 @@ runners until the shared action has passed a real pilot with the required manage
 
 ## Validation and publication
 
+This repository enables Renovate-managed squash automerge with passing checks
+required and `platformAutomerge: false`. Its existing weekly Actions runner remains
+in place until hosted-app migration, so green PRs may wait until its next run.
+The agreed [hosted dependency update design](https://github.com/accelerate-toolkit/renovate-config/blob/main/docs/design/dependency-updates.md)
+separates Monday update creation from subsequent merge runs. The reusable runner
+remains available for consumers that choose self-hosting.
+
 With Docker, Go, Node 22+, npm and uv available, run `make`, `make setup`, then
 `make check`. Run `make release-plan` for a non-publishing preview. This validates
 Renovate configuration, lints workflows and tests runner behavior without bot

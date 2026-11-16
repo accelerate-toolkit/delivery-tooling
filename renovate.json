@@ -37,5 +37,7 @@
       "datasourceTemplate": "github-releases"
     }
   ],
-  "automerge": false
+  "automerge": true,
+  "platformAutomerge": false,
+  "ignoreTests": false
 }
