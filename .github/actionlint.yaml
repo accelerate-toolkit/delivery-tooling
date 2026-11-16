@@ -1,0 +1,7 @@
+# GitHub hosted this label successfully in run 43878153596, but actionlint
+# v1.7.12 does not yet include it in its built-in runner list.
+# This exact-label compatibility entry does not change runner selection.
+# Remove it when the pinned actionlint release recognizes ubuntu-26.04.
+self-hosted-runner:
+  labels:
+    - ubuntu-26.04
