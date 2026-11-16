@@ -48,6 +48,9 @@ runners until the shared action has passed a real pilot with the required manage
 
 ## Validation and publication
 
+Use the [Actions usage guide](docs/runbooks/minimising-actions-usage.md) when
+reviewing triggers, dependency updates and CI cost.
+
 This repository enables Renovate-managed squash automerge with passing checks
 required and `platformAutomerge: false`. The Mend-hosted Renovate app replaces
 this repository's weekly Actions runner and its token. Monday-before-06:00

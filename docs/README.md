@@ -1,5 +1,6 @@
 # Delivery tooling documentation
 
+- [Minimising GitHub Actions usage](runbooks/minimising-actions-usage.md)
 - [Release design and consumer contract](design/releases.md)
 - [First source-release evidence](evidence/first-source-release/README.md)
 - [Implementation and verification status](wip/delivery-tooling/README.md)
