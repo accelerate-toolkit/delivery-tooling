@@ -39,5 +39,9 @@
   ],
   "automerge": true,
   "platformAutomerge": false,
-  "ignoreTests": false
+  "ignoreTests": false,
+  "timezone": "Europe/London",
+  "schedule": [
+    "before 6am on monday"
+  ]
 }

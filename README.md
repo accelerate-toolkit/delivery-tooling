@@ -49,8 +49,9 @@ runners until the shared action has passed a real pilot with the required manage
 ## Validation and publication
 
 This repository enables Renovate-managed squash automerge with passing checks
-required and `platformAutomerge: false`. Its existing weekly Actions runner remains
-in place until hosted-app migration, so green PRs may wait until its next run.
+required and `platformAutomerge: false`. The Mend-hosted Renovate app replaces
+this repository's weekly Actions runner and its token. Monday-before-06:00
+Europe/London controls creation; later hosted runs can merge green PRs.
 The agreed [hosted dependency update design](https://github.com/accelerate-toolkit/renovate-config/blob/main/docs/design/dependency-updates.md)
 separates Monday update creation from subsequent merge runs. The reusable runner
 remains available for consumers that choose self-hosting.
