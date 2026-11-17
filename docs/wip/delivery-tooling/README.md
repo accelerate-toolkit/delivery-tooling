@@ -48,6 +48,12 @@ updates remain unverified.
 
 ## Remaining
 
+Environment reservation tooling now includes a Python/uv client, verified local
+cache bootstrap and packaged DynamoDB backend module. Conditional-write and CLI
+integration tests use DynamoDB Local; the extracted module has a mocked Terraform
+plan. Real AWS deployment/IAM and operational recovery require consumer-owned
+qualification. See [the reservation contract](../../design/environment-reservations.md).
+
 - Verify live interrupted-publication recovery in an explicitly scoped pilot.
 - Pilot an application with its complete artifact set and provenance checks.
 - Complete repository inventory privately and migrate consumers in reviewed batches.

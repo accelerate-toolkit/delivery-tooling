@@ -23,7 +23,7 @@ jobs:
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: 26.13.1
-      - run: make setup check
+      - run: make setup check reservation-integration-test reservation-module-test
   plan:
     needs: check
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
@@ -39,10 +39,14 @@ jobs:
           persist-credentials: false
       - uses: ./actions/release-plan
         id: plan
+      - name: Package reservation tooling
+        if: steps.plan.outputs.release == 'true'
+        run: make reservation-package
       - uses: ./actions/release-verify
         if: steps.plan.outputs.release == 'true'
         with:
           plan: ${{ steps.plan.outputs.plan }}
+          artifacts: build/release/artifacts
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: steps.plan.outputs.release == 'true'
         with:
@@ -73,3 +77,4 @@ jobs:
           plan: build/release/release-plan.json
           manifest: build/release/release-manifest.json
           expected-commit: ${{ needs.plan.outputs.source-commit }}
+          artifacts: build/release/artifacts

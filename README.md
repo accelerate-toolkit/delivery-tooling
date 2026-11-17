@@ -1,5 +1,9 @@
 # Delivery tooling
 
+Reusable [environment reservations](docs/design/environment-reservations.md) are
+delivered as a Python/uv script and Terraform backend module. Consumers cache a
+verified release locally and call it from Make; shared state stays in DynamoDB.
+
 The public repository contains the initial Renovate preset and runner. Release
 planning, artifact verification and publication machinery have published the first
 verified source release, [v0.1.0](https://github.com/accelerate-toolkit/delivery-tooling/releases/tag/v0.1.0).

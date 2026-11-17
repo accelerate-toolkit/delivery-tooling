@@ -17,7 +17,7 @@ config-check: ## Validate the public preset and repository Renovate configuratio
 workflows-check: ## Check workflow syntax with the pinned actionlint release.
 	go run github.com/rhysd/actionlint/cmd/actionlint@v$(ACTIONLINT_VERSION) -shellcheck= .github/workflows/*.yml
 
-test: runner-test release-test ## Test dependency-runner and release behavior without publication credentials.
+test: runner-test release-test reservation-test ## Test dependency, release and reservation behavior without credentials.
 
 runner-test: ## Test runner targeting, preview behavior and credential validation without network access.
 	uv run --script tests/test_runner.py
@@ -27,3 +27,14 @@ release-test: ## Test version planning, artifact verification and publication re
 
 release-plan: ## Preview this repository's source release without publishing.
 	node release/cli.mjs plan --repository accelerate-toolkit/delivery-tooling
+
+.PHONY: reservation-test reservation-package reservation-integration-test reservation-module-test
+reservation-test: ## Test reservation contention, expiry, process supervision and verified caching offline.
+	uv run --script tests/test_reservation.py
+	uv run --script tests/test_tooling_cache.py
+reservation-integration-test: ## Check real DynamoDB conditional writes and CLI nesting in an ephemeral container.
+	uv run --script tests/test_reservation_dynamodb.py
+reservation-package: ## Package the standalone script and Terraform module deterministically.
+	python3 reservation/package.py
+reservation-module-test: ## Validate and mock-plan the extracted backend archive without AWS credentials.
+	uv run --script tests/test_reservation_module.py

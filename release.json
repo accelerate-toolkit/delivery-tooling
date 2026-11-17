@@ -7,7 +7,7 @@
       "requiredChecks": [
         "check"
       ],
-      "artifacts": []
+      "artifacts": ["reservation.py", "reservation-backend.zip"]
     }
   }
 }

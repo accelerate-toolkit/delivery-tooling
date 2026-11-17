@@ -6,7 +6,8 @@ is verified. Application pilots and live interrupted-publication recovery remain
 Consumers own their job graph, checks, build commands, runner selection, matrices,
 artifact contents, compatibility boundary and deployment. Shared CLI commands and
 composite actions supply planning, artifact verification and GitHub publication.
-The tooling's own workflow is a source-only consumer of these same operations.
+The tooling's own workflow uses these operations and now packages the reservation
+script and Terraform backend archive. Earlier releases were source-only.
 
 ## Library choice
 
