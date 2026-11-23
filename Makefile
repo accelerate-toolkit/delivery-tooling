@@ -1,5 +1,5 @@
 .DEFAULT_GOAL := help
-RENOVATE_IMAGE := ghcr.io/renovatebot/renovate:44.244.3
+RENOVATE_IMAGE := ghcr.io/renovatebot/renovate:44.257.9
 ACTIONLINT_VERSION := 1.7.12
 
 .PHONY: help setup check config-check workflows-check test runner-test release-test release-plan
